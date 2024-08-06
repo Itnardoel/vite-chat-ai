@@ -5,7 +5,14 @@ import FormMessages from "./components/formMessages";
 import SelectVoices from "./components/selectVoices";
 import {type Message} from "./types";
 
+const recognition = new webkitSpeechRecognition();
 const synth = window.speechSynthesis;
+
+recognition.continuous = true;
+recognition.lang = "es-AR";
+recognition.interimResults = false;
+recognition.maxAlternatives = 1;
+recognition.start();
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,14 +30,6 @@ function App() {
     },
   ]);
   const [textMessage, setTextMessage] = useState("");
-
-  const recognition = new webkitSpeechRecognition();
-
-  recognition.continuous = true;
-  recognition.lang = "es-AR";
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
-  recognition.start();
 
   useEffect(() => {
     setVoices(synth.getVoices());
